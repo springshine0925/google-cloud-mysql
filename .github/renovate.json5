@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "config:recommended", 
+    "docker:disable"
+  ],
+  "dependencyDashboardLabels": ["type: process"],
+  "commitMessagePrefix": "deps: ",
+  "rangeStrategy": "replace",
+  "rebaseWhen": "behind-base-branch",
+  "gitAuthor": null,
+  "packageRules": [
+    {
+      "extends": ["packages:linters"], 
+      "groupName": "linters"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "dependencies for github"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "devDependencies (non-major)",       
+      "schedule": ["on monday", "after 1am and before 7am"]
+    }
+  ],
+  "ignoreDeps": ["typescript"]
+}
